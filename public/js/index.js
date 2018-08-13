@@ -27,15 +27,33 @@ var subjectlist = {
 }
 };
 
+//populate the stream field
 $.each(subjectlist, function(key, value){
-    $.each(value, function(key, value){
         console.log(key);
         $('#stream').append($('<option>', { 
         value: key,
         text : key,
     }));
-    });
 });
+
+//populate the branch field 
+
+$('#stream').on('change', (ev)=>{
+    var selectedTitle = $(ev.currentTarget).find('option:selected').attr('value');
+    console.log(selectedTitle);
+    $('#branch').empty();
+    $.each(subjectlist[selectedTitle], function(key, value){
+    //console.log(key);
+        $('#branch').append($('<option>', { 
+        value: key,
+        text : key,
+    }));
+});    
+});
+
+//populate the semester to be implemented.
+
+
 
 $('#search').on('click',function() {
   // var sem = $(this).val();
