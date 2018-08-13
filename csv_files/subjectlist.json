@@ -10,6 +10,19 @@
     }
 },
 "BARCH":{
-
+    "BARCH":{
+        "8th Semester": ["EAR853 - BARRIER FREE ENVIRONMENT","EAR843 - URBAN DESIGN"],
+        "6th Semester": ["AR633 - LANDSCAPE DESIGN","AR642 - ESTIMATION AND VALUATION"]
+    }
+},
+"BPLAN":{
+    "BPLAN":{
+        "6TH Semester": ["15BPLN601 - REGIONAL PLANNING","15BPLN602 - PUBLIC FINANCE"]
+    }
+},
+"MPLAN":{
+    "MPLAN":{
+        "4TH Semester": ["15MPPE403C - DISASTER MANAGMENT","15MPPE403B - CITY AND METROPOLITAN PLANNING"]
+    }
 }
 }
