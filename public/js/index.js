@@ -17,4 +17,4 @@ $('#search').on('click',function() {
   //   }
   // })
   console.log("i am here")
-})
+});
