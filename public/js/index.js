@@ -1,4 +1,4 @@
-var subjectlist = {
+/**var subjectlist = {
 "BTECH":{
     "CSE": {
         "8th Semester": ["HSSM3402 -ENVIRONMENTAL ENGINEERING","PEEC5418 - SATELITE COMMUNICATION SYSTEMS"],
@@ -75,3 +75,4 @@ $('#search').on('click',function() {
   // })
   console.log("i am here")
 });
+**/

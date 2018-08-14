@@ -17,7 +17,6 @@ database.connection.connect(function(err) {
 
 var index = require('./routes/index');
 var users = require('./routes/result');
-
 var app = express();
 
 // view engine setup
