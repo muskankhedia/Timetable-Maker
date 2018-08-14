@@ -22,21 +22,35 @@ router.get('/', function(req, res, next) {
 // 	});
 // });
 router.get('/',function(req,res){
-	database.connection.query('SELECT DISTINCT SEM FROM '+database.tablename+' ORDER BY SEM ASC;', function(error,results,fields) {
-		var sems = results;
-		database.connection.query('SELECT DISTINCT BRANCH FROM '+database.tablename+' ORDER BY BRANCH ASC;', function(error,results,fields) {
-			var branches = results;
+    database.connection.query('SELECT DISTINCT STREAM FROM '+database.tablename+' ORDER BY STREAM ASC;', function(error,results,fields) {
+	    var streams = results;
+	    database.connection.query('SELECT DISTINCT SEM FROM '+database.tablename+' ORDER BY SEM ASC;', function(error,results,fields) {
+		    var sems = results;
+		    database.connection.query('SELECT DISTINCT BRANCH FROM '+database.tablename+' ORDER BY BRANCH ASC;', function(error,results,fields) {
+			    var branches = results;
 				database.connection.query('SELECT DISTINCT Subject FROM '+database.tablename+' ORDER BY Subject ASC;', function(error,results,fields) {
 					var subjects = results;
 					console.log(subjects)
-			res.render('index',{'sems' : sems, 'branches' : branches, 'subjects' : subjects});
+			    res.render('index',{'streams' : streams, 'sems' : sems, 'branches' : branches, 'subjects' : subjects});
 		});
 	});
 });
 });
 
-router.get('/api/:sem/getbranch', function(req,res){
-	var query = 'SELECT BRANCH FROM '+ database.tablename+' WHERE Sem = "'+req.params.sem+'" GROUP BY BRANCH;';
+router.get('/api/:stream/getsem', function(req,res){
+	var query = 'SELECT SEM FROM '+ database.tablename+' WHERE STREAM = "'+req.params.stream+'" GROUP BY STREAM;';
+	//console.log(query)n
+	database.connection.query(query, function(error,results,fields) {
+		if(error){
+			console.log(error);
+		}else{
+			res.send(results);
+		}
+	});
+});
+
+router.get('/api/:stream/:sem/getbranch', function(req,res){
+	var query = 'SELECT BRANCH FROM '+ database.tablename+' WHERE SEM = "'+req.params.sem+'" GROUP BY BRANCH;';
 	//console.log(query)n
 	database.connection.query(query, function(error,results,fields) {
 		if(error){
