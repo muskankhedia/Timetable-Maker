@@ -3,6 +3,7 @@ var router = express.Router();
 
 var path = require("path");
 
+var database = require('../database.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
