@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+const bodyParser = require('body-parser');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -25,14 +26,14 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'routes')));
 
 app.use('/', index);
 app.use('/result', users);
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handl;er
 app.use(function(req, res, next) {
   next(createError(404));
 });
