@@ -8,7 +8,7 @@ var con = mysql.createConnection({
   database: "Timetable_Maker"
 });
 
-var tablename= "3S";
+var tablename= "test";
 module.exports = {
   tablename : tablename,
   connection : con
