@@ -1,61 +1,4 @@
-/**var subjectlist = {
-"BTECH":{
-    "CSE": {
-        "8th Semester": ["HSSM3402 -ENVIRONMENTAL ENGINEERING","PEEC5418 - SATELITE COMMUNICATION SYSTEMS"],
-        "7th Semester": ["HSSM3402 -ENVIRONMENTAL ENGINEERING","PEEC5418 - SATELITE COMMUNICATION SYSTEMS"]
-    },
-    "EE": {
-        "8th Semester": ["HSSM3402 -ENVIRONMENTAL ENGINEERING","PEEC5418 - SATELITE COMMUNICATION SYSTEMS"],
-        "7th Semester": ["HSSM3402 -ENVIRONMENTAL ENGINEERING","PEEC5418 - SATELITE COMMUNICATION SYSTEMS"]
-    }
-},
-"BARCH":{
-    "BARCH":{
-        "8th Semester": ["EAR853 - BARRIER FREE ENVIRONMENT","EAR843 - URBAN DESIGN"],
-        "6th Semester": ["AR633 - LANDSCAPE DESIGN","AR642 - ESTIMATION AND VALUATION"]
-    }
-},
-"BPLAN":{
-    "BPLAN":{
-        "6TH Semester": ["15BPLN601 - REGIONAL PLANNING","15BPLN602 - PUBLIC FINANCE"]
-    }
-},
-"MPLAN":{
-    "MPLAN":{
-        "4TH Semester": ["15MPPE403C - DISASTER MANAGMENT","15MPPE403B - CITY AND METROPOLITAN PLANNING"]
-    }
-}
-};
-
-//populate the stream field
-$.each(subjectlist, function(key, value){
-        console.log(key);
-        $('#stream').append($('<option>', { 
-        value: key,
-        text : key,
-    }));
-});
-
-//populate the branch field 
-
-$('#stream').on('change', (ev)=>{
-    var selectedTitle = $(ev.currentTarget).find('option:selected').attr('value');
-    console.log(selectedTitle);
-    $('#branch').empty();
-    $.each(subjectlist[selectedTitle], function(key, value){
-    //console.log(key);
-        $('#branch').append($('<option>', { 
-        value: key,
-        text : key,
-    }));
-});    
-});
-
-//populate the semester to be implemented.
-
-
-
-$('#search').on('click',function() {
+/** $('#search').on('click',function() {
   // var sem = $(this).val();
   // $.ajax({
   //   method : 'POST',
@@ -75,4 +18,186 @@ $('#search').on('click',function() {
   // })
   console.log("i am here")
 });
-**/
+**/  
+
+
+
+
+$('#stream_select').on('change',function() {
+  var stream = $(this).val();
+  $.ajax({
+    method : 'GET',
+    url : '/api/'+stream+'/getsem',
+    dataType: 'json',
+    success : function(data){
+      var $el = $("#sem_select");
+                    $el.empty(); // remove old options
+                    $el.append($("<option></option>")
+                            .attr("value", '').text('Please Select'));
+                    $.each(data, function(value, key) {
+                        $el.append($("<option></option>")
+                                .text(key.SEM));
+                    });                           
+      
+    }
+  })
+})
+
+$('#sem_select').on('change',function() {
+    var sem = $(this).val();
+    $.ajax({
+      method : 'GET',
+      url : '/api/'+stream+'/'+sem+'/getbranch',
+      dataType: 'json',
+      success : function(data){
+        var $el = $("#branch_select");
+                      $el.empty(); // remove old options
+                      $el.append($("<option></option>")
+                              .attr("value", '').text('Please Select'));
+                      $.each(data, function(value, key) {
+                          $el.append($("<option></option>")
+                                  .text(key.BRANCH));
+                      });                           
+        
+      }
+    })
+  })
+
+$('#branch_select').on('change',function() {
+    var stream = $('#stream_select').val();
+    console.log(stream);
+    var sem = $('#sem_select').val();
+    console.log(sem);
+    var branch = $('#branch_select').val();
+    console.log(branch);
+    var subject = $(this).val();
+    console.log(subject);
+    $.ajax({
+      method : 'GET',
+      url : '/api/'+stream+'/'+sem+'/'+branch+'/getsubj',
+      dataType: 'json',
+      success : function(data){
+        var $el = $("#subject_select");
+                      $el.empty(); // remove old options
+                      $el.append($("<option></option>")
+                              .attr("value", '').text('Please Select'));
+                      $.each(data, function(value, key) {
+                          $el.append($("<option></option>")
+                                  .attr("value",key.Sub_Code).text(key.Subject));
+                      });                          
+      }
+    })
+  })
+
+
+$('#subject_select').on('change',function() {
+  var stream = $('#stream_select').val();
+  console.log(sem);
+  var sem = $('#sem_select').val();
+  console.log(sem);
+  var branch = $('#branch_select').val();
+  console.log(branch);
+  var subject = $('#subject_select').val();
+  console.log(branch);
+  var section = $(this).val();
+  console.log(section);
+  
+  $.ajax({
+    method : 'GET',
+    url : '/api/'+stream+'/'+sem+'/'+branch+'/'+subject+'/getsection',
+    dataType: 'json',
+    success : function(data){
+      var $el = $("#section_select");
+                    $el.empty(); // remove old options
+                    $el.append($("<option></option>")
+                            .attr("value", '').text('Please Select'));
+                    $.each(data, function(value, key) {
+                        $el.append($("<option></option>")
+                                .text(key.SECTION));
+                    });                          
+    }
+  })
+})
+
+$('#section_select').on('change',function() {
+    var stream = $('#stream_select').val();
+    console.log(sem);
+    var sem = $('#sem_select').val();
+    console.log(sem);
+    var branch = $('#branch_select').val();
+    console.log(branch);
+    var subject = $('#subject_select').val();
+    console.log(branch);
+    var subject = $('#section_select').val();
+    console.log(branch);
+    var group = $(this).val();
+    console.log(group);
+    
+    $.ajax({
+      method : 'GET',
+      url : '/api/'+stream+'/'+sem+'/'+branch+'/'+subject+'/'+section+'/getgroup',
+      dataType: 'json',
+      success : function(data){
+        var $el = $("#group_select");
+                      $el.empty(); // remove old options
+                      $el.append($("<option></option>")
+                              .attr("value", '').text('Please Select'));
+                      $.each(data, function(value, key) {
+                          $el.append($("<option></option>")
+                                  .text(key.GROUP));
+                      });                          
+      }
+    })
+  })
+
+
+
+// $('#searchbtn').on('click',function() {
+//       var sem = $('#sem_select').val();
+//       console.log(sem);
+//       var branch = $('#branch_select').val();
+//       console.log(branch);
+//       var subject = $('#subject_select').val();
+//       console.log(subject);
+//       location.href = '/result/'+sem+'/'+branch+'/'+subject;
+// })
+
+
+/**$('.markbox').on('change',function() {
+  var redgno = $(this).data('reg');
+  var mark = $(this).val();
+  console.log(mark);
+  console.log(redgno);
+  $.ajax({
+    method : 'GET',
+    url : '/result/'+redgno+'/'+mark,
+    success : function(data){
+      console.log(data);                          
+    }
+  })
+}) **/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
