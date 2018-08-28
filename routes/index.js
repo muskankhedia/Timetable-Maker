@@ -28,11 +28,19 @@ router.get('/api',function(req,res){
 			    var branches = results;
 				database.connection.query('SELECT DISTINCT Subject FROM '+database.tablename+' ORDER BY Subject ASC;', function(error,results,fields) {
 					var subjects = results;
-					console.log(subjects)
-			    res.render('index',{'streams' : streams, 'sems' : sems, 'branches' : branches, 'subjects' : subjects});
-		});
-	});
-});
+					database.connection.query('SELECT DISTINCT SECTION FROM '+database.tablename+' ORDER BY SECTION ASC;', function(error,results,fields) {
+						var section = results;
+						database.connection.query('SELECT DISTINCT GROUP FROM '+database.tablename+' ORDER BY SECTION ASC;', function(error,results,fields) {
+							var group = results;
+						    console.log(subjects)
+			
+							res.render('index',{'streams' : streams, 'sems' : sems, 'branches' : branches, 'subjects' : subjects});
+					});	
+		
+				});
+			});
+	    });
+   });
 });
 
 router.get('/api/:stream/getsem', function(req,res){
@@ -71,6 +79,29 @@ router.get('/api/:stream/:sem/:branch/getsubj', function(req,res){
 		}
 	});
 });
+
+router.get('/api/:stream/:sem/:branch/:subject/getsection', function(req,res){
+	var query = "Select SECTION FROM "+database.tablename+" WHERE SUBJECT = '" +req.params.subject+"' AND SEM = '"+req.params.sem+"' AND STREAM = '"+req.params.stream+"'GROUP BY Subject,Sub_Code;";
+	//console.log(query)
+	database.connection.query(query, function(error,results,fields) {
+		if(error){
+			console.log(error);
+		}else{
+			//console.log(results);
+		res.send(results);
+		}
+	});
+});
+
+
+
+
+
+
+
+
+
+
 
 	
 module.exports = router;

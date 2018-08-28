@@ -17,7 +17,7 @@ var router = express.Router();
 //   });
 // });
 
-router.post('/',function(req,res,next){
+/**router.post('/',function(req,res,next){
   console.log("got POST request");
   console.log(req.body.stream_select);
   console.log(req.body.sem_select);
@@ -68,7 +68,7 @@ router.get('/:redg/:name', function(req, res, next) {
     console.log(results.affectedRows + " record(s) updated");
     res.send(results)}
   });
-});
+}); **/
 
 module.exports = router;
 
