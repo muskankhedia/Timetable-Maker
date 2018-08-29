@@ -4,8 +4,8 @@
     Exam Attendance Details
     </title>
     <head>
-    <link rel = "stylesheet" href="/stylesheets/style.css">
-    <link rel = "stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel = "stylesheet" href="./stylesheets/style.css">
+    <link rel = "stylesheet" href="./stylesheets/bootstrap.min.css">
     <script type="text/javascript" src="/js/jquery.js"></script>
     </head>
     <body>
@@ -23,7 +23,7 @@
                       <div class = "row col-sm-12 col-md-12">
                           <select class="form-control" id="stream_select" name="stream_select">
                               <option selected disabled>Please Select the Semester</option>
-                              <% for(var i = 0; i < stream.length; i++) {%>
+                              <% for(var i = 0; i < streams.length; i++) {%>
                                 <option value="<%=streams[i]['STREAM']%>" id="streamid" name="streamid"><%=streams[i]['STREAM']%> Stream</option>
                               <%}%>>
                           </select>
@@ -57,20 +57,7 @@
                     </div>
                 </div>
           </fieldset>
-            <fieldset class="inline-fields subj mb-5">
-              <h3>Select the Subject</h3>
-                  <div class = "row col-sm-12">
-                      <div class = "row col-sm-12 col-md-12">
-                          <select class="form-control" id="subject_select" name="subject_select">
-                            <option selected disabled>Please Select the Subject</option>
-                            <% for(var i = 0; i < subjects.length; i++) {%>
-                            <option value="<%=subjects[i]['Subject']%>" id="subjectid" name="subjectid"><%=subjects[i]['Subject']%></option>
-                            <%}%>>
-                          </select>
-                      </div>
-                  </div>
-            </fieldset>
-          <button class="btn btn-primary btn-lg js-scroll-trigger" id="searchbtn">Search</button>
+          
         </form>
     </div>
   </div>
@@ -141,7 +128,7 @@
           <label>Date Of Examination:</label>
           <input type = "date" name = "DOE" id="date">
           <label>Section:</label>
-          <select name="section" id="sec">
+          <select name="section" id="section">
             <option value= "A">A</option>
             <option value= "B">B</option>
           </select>
@@ -157,7 +144,7 @@
           <input type="text" name= "rn" maxlength="5" size="5" id="room">
           <br>
         </div>
-        <button>Get Details</button>
+        <button id="get_details">Get Details</button>
 
       </form>
     </div>
