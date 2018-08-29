@@ -8,6 +8,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/result');
 
 var app = express();
+var database = require('./database.js');
+
+database.connection.connect(function(err) {
+  if (err) throw err;
+  console.log("Database is now connected!");
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
