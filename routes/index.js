@@ -119,8 +119,9 @@ router.post('/result', (req, res) => {
 				obj.regno =results[i]['REGNO'] 
 				resultsArr.push(obj)
 			}
-			// console.warn(resultsArr)
+		 console.warn(resultsArr)
 		// res.send(resultsArr)
+		
 		res.render(__dirname+'/details.ejs', {arrResult: resultsArr,
 			semester: sem,subject:sub,group:grp,branch:branch,roomNo:roomNo,date:date,time:slot,block:block})
 
