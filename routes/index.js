@@ -12,6 +12,7 @@ var database = require('../database.js');
 router.get('/', function (req, res) {
 	console.log("inside API");
 	console.log("table name - " + database.tablename);
+	console.log("table name - " + database.tablename1);
 	database.connection.query('SELECT DISTINCT STREAM FROM ' + database.tablename + ' ORDER BY STREAM ASC;', function (error, results, fields) {
 		console.log(results);
 		var streams = results;
@@ -20,19 +21,19 @@ router.get('/', function (req, res) {
 			var sems = results;
 			database.connection.query('SELECT DISTINCT BRANCH FROM ' + database.tablename + ' ORDER BY BRANCH ASC;', function (error, results, fields) {
 				var branches = results;
-				//database.connection.query('SELECT DISTINCT Subject FROM ' + database.tablename + ' ORDER BY Subject ASC;', function (error, results, fields) {
-					//var subjects = results;
+				database.connection.query('SELECT DISTINCT SUBJECT FROM ' + database.tablename1 + ' ORDER BY Subject ASC;', function (error, results, fields) {
+					var subjects = results;
 					database.connection.query('SELECT DISTINCT SECTION FROM ' + database.tablename + ' ORDER BY SECTION ASC;', function (error, results, fields) {
 						var section = results;
 						database.connection.query('SELECT DISTINCT GROUP FROM ' + database.tablename + ' ORDER BY SECTION ASC;', function (error, results, fields) {
 							var group = results;
 							//console.log(subjects)
 
-							res.render('index', { 'streams': streams, 'sems': sems, 'branches': branches /*, 'subjects': subjects*/ });
+							res.render('index', { 'streams': streams, 'sems': sems, 'branches': branches , 'subjects': subjects });
 						});
 
 					});
-				//});
+				});
 			});
 		});
 	});
@@ -41,6 +42,7 @@ router.get('/', function (req, res) {
 router.get("/api/stream/:name" , function(req,res){
 	console.log(req.params.name);
 	var query = 'SELECT SEM FROM ' + database.tablename + ' WHERE STREAM = "' + req.params.name + '" GROUP BY SEM;';
+	console.log(query);
 	database.connection.query(query, function (error, results, fields) {
 		console.log(results);
 		if (error) {
@@ -66,7 +68,22 @@ router.get("/api/sem/:sem/:stream" , function(req,res){
 	});
 });
 
-router.get("/details/:stream/:sem/:branch/:section/:group/:room/:date" , function(req,res){
+router.get('/api/:stream:sem/:branch/subject', function(req,res){
+	var query = "Select SUBJECT FROM "+database.tablename1+" WHERE BRANCH = '" +req.params.branch+"' AND SEM = '"+req.params.sem+"' GROUP BY SUBJECT;";
+	console.log(query)
+	database.connection.query(query, function(error,results,fields) {
+		console.log(results);
+		if(error){
+			console.log(error);
+		}else{
+			//console.log(results);
+			res.send(results);
+		}
+	});
+});
+
+
+router.get("/details/:stream/:sem/:branch/:subject/:section/:group/:room/:date" , function(req,res){
 	console.warn('called')
 	var query = "SELECT SL , NAME , REGNO FROM " + database.tablename +" WHERE STREAM = '" +req.params.stream + "' SEM ='" +req.params.sem + "' BRANCH = '" +req.params.branch + "SEC' AND  '"  + req.params.sec +
 	"GROUP' ="+ req.params.group+";"  ;
@@ -93,6 +110,7 @@ router.post('/result', (req, res) => {
 		block = req.body.block,
 		date = req.body.DOE,
 		slot = req.body.slot,
+		subject = req.body.subject,
 		roomNo = req.body.rn;
 	q= 'SELECT SL , NAME , REGNO FROM ' + database.tablename +" WHERE STREAM = '" +streamOutput
 	 + "' and SEM =" +sem + " and BRANCH = '" +branch + "' AND  "  +
@@ -123,7 +141,7 @@ router.post('/result', (req, res) => {
 		// res.send(resultsArr)
 		
 		res.render(__dirname+'/details.ejs', {arrResult: resultsArr,
-			semester: sem,subject:sub,group:grp,branch:branch,roomNo:roomNo,date:date,time:slot,block:block})
+			semester: sem,subject:sub,group:grp,branch:branch,roomNo:roomNo,date:date,time:slot,block:block,subject:subject})
 
 			// console.warn(results)
 			// res.render(results);

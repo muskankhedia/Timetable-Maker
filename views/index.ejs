@@ -47,25 +47,28 @@
 
           <div class="C" class="inline-fields stream mb-5" style="width:330px; margin-left: 15px;">
             <!-- <label>Subject Name:</label> -->
-                          <select class="form-control" name="subject" id="sub">
-                            <option selected disabled>Please Select the Subject</option>
-                            <option value="AM1">APPLIED MATHEMATICS</option>
-                            <option value= "XYZ">FJKDHFJKHFK</option>
+                          <select class="form-control" name="subject" id="subject">
+                              <option selected disabled>Please Select the Subject</option>
+                            <% for(var i = 0; i < subjects.length; i++) {%>
+                              <option value="<%=subjects[i]['SUBJECT']%>" id="subjectid" name="subjectid"><%=subjects[i]['SUBJECT']%></option>
+                            <%}%>>
                         </select>
             <br>
           </div>
           
           
-          <div class="D" style="padding-top:10px; margin-left: 10px;">
+          <div class="D" style="padding-top:10px; margin-left: 0px;">
                         <label>Date Of Examination:</label>
                           <input type = "date" name = "DOE" id="date">
                         <label>Section:</label>
-                          <select  name="section" id="section" style="width:30px;">
+                          <select  name="section" id="section" style="width:40px;height:25px;
+                          background-color: white;border-radius: 1rem;">
                             <option value= "A">A</option>
                             <option value= "B">B</option>
                           </select>
                         <label>Group:</label>
-                          <select  name = "group" id="group">
+                          <select  name = "group" id="group" style="width:40px;height:25px;
+                          background-color: white;border-radius: 1rem;">
                             <option value="1">1</option>
                             <option value="2">2</option>
                           </select>
@@ -75,7 +78,8 @@
 
           <div class="E" class="form-control" style="padding-top:10px; margin-left: 30px;">
                       <label>Block</label>
-                        <select name= "block" id="block" >
+                        <select name= "block" id="block" style="width:40px;height:25px;
+                        background-color: white;border-radius: 1rem;" >
                           <option value="A">A</option>
                           <option value="B">B</option>
                           <option value="C">C</option>
@@ -83,16 +87,17 @@
 
                         <select style="padding-left: 10px;">
                           <label>Room No.</label>
-                            <input type="text" name="rn" id ="rn" size="4" maxlength="4">
+                            <input type="text" style="background-color:rgb(220, 241, 248);height:10px;" name="rn" id ="rn" size="4" maxlength="4">
                         </select>
                           <label>Slot</label>
-                            <select  name= "slot" id ="slot">
+                            <select  name= "slot" id ="slot" style="width:40px;height:25px;
+                            background-color: white;border-radius: 1rem;">
                               <option value="9:30-10:30">1</option>
-                              <option value="10:30-11:30">2</option>
-                              <option value="11:30-12:30">3</option>
-                              <option value="12:30-1:30">4</option>
-                              <option value="2:30-3:30">5</option>
-                              <option value="3:30-4:30">6</option>
+                              <!-- <option value="10:30-11:30">2</option> -->
+                              <option value="11:30-12:30">2</option>
+                              <option value="12:30-1:30">3</option>
+                              <!-- <option value="2:30-3:30">5</option> -->
+                              <option value="3:30-4:30">4</option>
                             </select>
                       <br>
           </div>

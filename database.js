@@ -8,8 +8,10 @@ var con = mysql.createConnection({
   database: "Timetable_Maker"
 });
 
-var tablename= "5TH_SEM";
+var tablename= "ALL_SEM";
+var tablename1= "SUBJECT_LIST";
 module.exports = {
   tablename : tablename,
+  tablename1 : tablename1,
   connection : con
 }
