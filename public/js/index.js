@@ -34,7 +34,7 @@ $(document).ready(function () {
         var $el = $("#sem_select");
         $el.empty(); // remove old options
         $el.append($("<option></option>")
-          .attr("value", '').text('Please Select'));
+          .attr("value", '').text('Please Select Semester'));
         $.each(data, function (value, key) {
           $el.append($("<option></option>")
             .text(key.SEM));
@@ -61,10 +61,37 @@ $(document).ready(function () {
         var $el = $("#branch_select");
         $el.empty(); // remove old options
         $el.append($("<option></option>")
-          .attr("value", '').text('Please Select'));
+          .attr("value", '').text('Please Select Branch'));
         $.each(data, function (value, key) {
           $el.append($("<option></option>")
             .text(key.BRANCH));
+        });
+
+      }
+    })
+  })
+
+  $('#branch_select').on('change',function(){
+    console.log("changed");
+
+    var sem = $("#sem_select").val();
+    var branch = $("#branch_select").val();
+
+    var subject = $(this).val();
+    console.log(subject);
+    $.ajax({
+      method: 'GET',
+      url: "/api/getsubj/" + sem + "/" + branch ,
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        var $el = $("#subject");
+        $el.empty(); // remove old options
+        $el.append($("<option></option>")
+          .attr("value", '').text('Please Select Subject'));
+        $.each(data, function (value, key) {
+          $el.append($("<option></option>")
+            .text(key.SUBJECT));
         });
 
       }

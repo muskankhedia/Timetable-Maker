@@ -68,7 +68,7 @@ router.get("/api/sem/:sem/:stream" , function(req,res){
 	});
 });
 
-router.get('/api/:sem/:branch/getsubj', function(req,res){
+router.get('/api/getsubj/:sem/:branch', function(req,res){
 	var query = "Select SUBJECT FROM "+database.tablename1+" WHERE BRANCH = '" +req.params.branch+"' AND SEM = '"+req.params.sem+"' GROUP BY SUBJECT;";
 	console.log(query)
 	database.connection.query(query, function(error,results,fields) {
