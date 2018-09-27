@@ -116,7 +116,7 @@ router.post('/result', (req, res) => {
 	 + "' and SEM =" +sem + " and BRANCH = '" +branch + "' AND  "  +
 	"GRP ="+grp+";"  ;
 	database.connection.query(q, function (error, results) {
-		console.debug('output from database below')
+		console.log('output from database below')
 		// console.log(results);
 		if (error) {
 			console.error(error);
