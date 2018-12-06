@@ -14,6 +14,9 @@ database.connection.connect(function(err) {
   console.log("Database is now connected!");
 });
 
+database.connection.query("Select * from "+ database.tablename, function(error, results, fields){
+      
+});
 
 var index = require('./routes/index');
 //var users = require('./routes/result');

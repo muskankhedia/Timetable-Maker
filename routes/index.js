@@ -31,7 +31,6 @@ router.get('/', function (req, res) {
 
 							res.render('index', { 'streams': streams, 'sems': sems, 'branches': branches , 'subjects': subjects });
 						});
-
 					});
 				});
 			});

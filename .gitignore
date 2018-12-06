@@ -64,3 +64,5 @@ run.sh
 build.sh
 ecr_login.sh
 temp/*
+
+node_modules/
